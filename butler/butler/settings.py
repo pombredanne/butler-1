@@ -60,12 +60,18 @@ WSGI_APPLICATION = 'butler.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+import dj_database_url
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {'default': dj_database_url.config()}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'butler.sqlite3'),
+        }
     }
-}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -81,3 +87,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Celery settings
+
+
+# Butler specific settings
+PUPPETDB_URL = os.environ['PUPPETDB_URL']
