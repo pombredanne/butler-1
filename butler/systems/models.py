@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Environment(models.Model):
-    name = models.CharName(max_length=20, db_index=True)
+    name = models.CharField(max_length=20, db_index=True)
 
     def __unicode__(self):
         return self.name
@@ -13,3 +13,8 @@ class Environment(models.Model):
 class Machine(models.Model):
 
     environment = models.ForeignKey(Environment)
+    nodename = models.CharField(max_length=50, db_index=True)
+
+    def __unicode__(self):
+        return self.nodename
+g
