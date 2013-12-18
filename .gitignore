@@ -1,5 +1,9 @@
 *.py[cod]
 
+butler.sqlite3
+butler*.key
+butler*.crt
+
 # C extensions
 *.so
 
