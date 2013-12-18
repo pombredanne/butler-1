@@ -22,7 +22,7 @@
 
 CACERT=$1
 CAKEY=$2
-BASE_NAME=$3
+BASENAME=$3
 
 # make the key
 openssl genrsa -out $BASENAME.key 2048
