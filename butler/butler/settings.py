@@ -76,7 +76,6 @@ else:
         }
     }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -98,3 +97,5 @@ STATIC_URL = '/static/'
 
 # Butler specific settings
 PUPPETDB_URL = os.environ['PUPPETDB_URL']
+PUPPETDB_KEY = os.environ.get('BUTLER_PUPPETDB_KEY')
+PUPPETDB_CERT = os.environ.get('BUTLER_PUPPETDB_CERT')

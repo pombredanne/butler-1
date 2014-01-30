@@ -13,7 +13,10 @@ def sync_nodes():
     headers = {
         'Accepts': 'application/json'
     }
-    req = requests.get(url, headers=headers, verify=False)
+
+    cert = (settings.PUPPETDB_CERT, settings.PUPPETDB_KEY)
+
+    req = requests.get(url, headers=headers, verify=False, cert=cert)
 
     for node in req.json():
         sync_node(node['name'])
@@ -23,5 +26,5 @@ def sync_nodes():
 def sync_node(nodename):
     puppetdb = PuppetDB()
     environment_name = puppetdb.get_environment(nodename)
-    env = Environment.objects.get_or_create(environment_name)
+    env, _ = Environment.objects.get_or_create(name=environment_name)
     Machine.objects.get_or_create(environment=env, nodename=nodename)
