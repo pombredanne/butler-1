@@ -61,6 +61,7 @@ def _get_reqs(req):
 _install_requires = _get_reqs('common.txt')
 _extras_require = {
     'psql': _get_reqs('psql.txt'),
+    'mysql': _get_reqs('mysql.txt'),
 }
 
 _data_files = [('', ['requirements/%s' % reqs_file for reqs_file in os.listdir(_reqs_dir)])]
