@@ -153,7 +153,7 @@ LOGGING = {
             'propagate': False,
         },
         'butler': {
-            'handlers': 'console',
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': True
         }
