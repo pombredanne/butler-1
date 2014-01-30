@@ -45,6 +45,8 @@ INSTALLED_APPS = (
     'systems',
 
     'south',
+    'djcelery',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,8 +96,17 @@ STATIC_URL = '/static/'
 
 # Celery settings
 
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+CELERY_IMPORTS = (
+    'systems.tasks',
+)
+
+BROKER_URL = os.environ.get('BROKER_URL', 'django://')
+if BROKER_URL == 'django://':
+    INSTALLED_APPS += ("kombu.transport.django",)
+
 
 # Butler specific settings
-PUPPETDB_URL = os.environ['PUPPETDB_URL']
+PUPPETDB_URL = os.environ.get('PUPPETDB_URL')
 PUPPETDB_KEY = os.environ.get('BUTLER_PUPPETDB_KEY')
 PUPPETDB_CERT = os.environ.get('BUTLER_PUPPETDB_CERT')

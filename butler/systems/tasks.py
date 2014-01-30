@@ -19,7 +19,7 @@ def sync_nodes():
     req = requests.get(url, headers=headers, verify=False, cert=cert)
 
     for node in req.json():
-        sync_node(node['name'])
+        sync_node.delay(node['name'])
 
 
 @task
