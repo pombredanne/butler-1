@@ -3,3 +3,4 @@ celery==3.0.24
 South==0.8.2
 requests==2.0.1
 dj_database_url==0.2.2
+gunicorn
