@@ -32,5 +32,11 @@ class PuppetDB(object):
         return self._get(url)[0]['value']
 
     def get_roles(self, node):
-        url = self._build_url('nodes', node, 'facts', 'roles')
-        return self._get(url)[0]['value']
+        url = self._build_url('nodes', node, 'resources', 'Class')
+        data = self._get(url)
+        rolenames = []
+        for cls in data:
+            if cls['title'].startswith('Role::'):
+                rolename = cls['title'][6:].lower()
+                rolenames.append(rolename)
+        return rolenames
