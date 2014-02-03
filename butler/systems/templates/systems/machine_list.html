@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <table class='table'>
+        <thead>
+            <tr>
+                <th>Environment</th>
+                <th>Hostname</th>
+                <th>Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for machine in machine_list %}
+            <tr>
+                <td>{{ machine.environment.name }}</td>
+                <td>{{ machine.nodename }}</td>
+                <td>
+                    {% for role in machine.roles.all %}
+                        {{ role.name }} -
+                    {% endfor %}
+                </td>
+            <tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

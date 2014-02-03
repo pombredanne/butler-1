@@ -34,6 +34,11 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+PROJECT_APPS = (
+    'core',
+    'systems',
+)
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,13 +47,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'systems',
-
     'south',
     'djcelery',
     'gunicorn'
 
-)
+) + PROJECT_APPS
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
