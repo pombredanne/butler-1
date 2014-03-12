@@ -8,13 +8,15 @@
                 <th>Environment</th>
                 <th>Hostname</th>
                 <th>Roles</th>
+                <th>Security Packages</th>
+                <th>Total Updatable Packages</th>
             </tr>
         </thead>
         <tbody>
             {% for machine in machine_list %}
             <tr>
                 <td>{{ machine.environment.name }}</td>
-                <td>{{ machine.nodename }}</td>
+                <td>{{ machine.hostname }}</td>
                 <td>
                     {% for role in machine.roles.all %}
                         {{ role.name }} -
