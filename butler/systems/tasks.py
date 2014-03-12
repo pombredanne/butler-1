@@ -35,7 +35,7 @@ def sync_node(hostname):
     machine, _ = Machine.objects.get_or_create(environment=env, nodename=nodename)
 
     roles = []
-    for role in puppetdb.get_roles(nodename):
+    for role in puppetdb.get_roles(hostname):
         role, _ = Role.objects.get_or_create(name=role)
         roles.append(role)
 
