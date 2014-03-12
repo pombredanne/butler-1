@@ -8,8 +8,9 @@
                 <th>Environment</th>
                 <th>Hostname</th>
                 <th>Roles</th>
-                <th>Security Packages</th>
-                <th>Total Updatable Packages</th>
+                <th>Security Updates</th>
+                <th>Total Updates</th>
+                <th>Requires Restart?</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,9 @@
                         {{ role.name }} -
                     {% endfor %}
                 </td>
+                <td>{{ machine.security_packages }}</td>
+                <td>{{ machine.total_packages }}</td>
+                <td>{{ machine.requires_restart }}</td>
             <tr>
             {% endfor %}
         </tbody>
