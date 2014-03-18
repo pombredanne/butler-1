@@ -42,7 +42,7 @@ def sync_node(hostname):
     machine.roles = roles
 
     # get the system package information from Graphite
-    render_url = 'http://graphite.admin.akvo-ops.org/render/'
+    render_url = 'http://graphite.support.akvo-ops.org/render/'  # TODO: de-hardcode this!
     params = {
         'target': [stat_name % (env.name, machine.nodename) for stat_name in [
             'stats.gauges.systems.%s.%s.packages.security',
