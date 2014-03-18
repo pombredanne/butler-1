@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             {% for machine in machine_list %}
-            <tr>
+            <tr data-machine-id="{{ machine.id }}">
                 <td>{{ machine.environment.name }}</td>
                 <td>{{ machine.hostname }}</td>
                 <td>
@@ -23,11 +23,11 @@
                         {{ role.name }} -
                     {% endfor %}
                 </td>
-                <td>
+                <td class='security-packages'>
                     {% if machine.security_packages == None %}
                         <span class='label label-info'>?</span>
                     {% elif machine.security_packages == 0 %}
-                        0
+                    <span class='label label-success'>0</span>
                     {% else %}
                         <span class='label label-danger'>
                             {{ machine.security_packages }}
@@ -35,18 +35,18 @@
                     {% endif %}
                 </td>
 
-                <td>
+                <td class='total-packages'>
                     {% if machine.total_packages == None %}
                     <span class='label label-info'>?</span>
                     {% elif machine.total_packages == 0 %}
-                    0
+                    <span class='label label-success'>0</span>
                     {% else %}
                         <span class='label label-warning'>
                             {{ machine.total_packages }}
                         </span>
                     {% endif %}
                 </td>
-                <td>
+                <td class='requires-restart'>
                     {% if machine.requires_restart == None %}
                     <span class='label label-info'>?</span>
                     {% elif machine.requires_restart %}
@@ -54,7 +54,7 @@
                         YES
                     </span>
                     {% else %}
-                    No
+                    <span class='label label-success'>No</span>
                     {% endif %}
                 </td>
             <tr>
@@ -66,8 +66,36 @@
 
 {% block extra_scripts %}
 <script type="text/javascript">
+    function update() {
+        $.getJSON("{% url 'machine_list_update' %}", function(data){
+            for (var machineId in data) {
+                var row = $('*[data-machine-id=' + machineId + ']');
+                var labelClass = data[machineId]['security'] == 0 ? 'success' :
+                                 data[machineId]['security'] === null ? 'info' :
+                                 'danger'
+                var val = data[machineId]['security'] === null ? '?' : data[machineId]['security']
+                var html = '<span class="label label-' + labelClass + '">' + val + "</span>";
+                row.find('.security-packages').html(html);
+
+                var labelClass = data[machineId]['total'] == 0 ? 'success' :
+                                 data[machineId]['total'] === null ? 'info' :
+                                 'warning'
+                var val = data[machineId]['total'] === null ? '?' : data[machineId]['total']
+                var html = '<span class="label label-' + labelClass + '">' + val + "</span>";
+                row.find('.total-packages').html(html);
+
+                var labelClass = data[machineId]['restart'] == 0 ? 'success' :
+                                 data[machineId]['restart'] === null ? 'info' :
+                                 'danger'
+                var val = data[machineId]['restart'] === null ? '?' :
+                          data[machineId]['restart'] ? 'YES' : 'No'
+                var html = '<span class="label label-' + labelClass + '">' + val + "</span>";
+                row.find('.restart-packages').html(html);
+            }
+        });
+    }
     $(function(){
-        $('.sortable').sortable();
+        setInterval(update, 5000);
     });
 </script>
 {% endblock %}
