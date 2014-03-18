@@ -54,12 +54,17 @@ def sync_node(hostname):
     }
     url = '%s?%s' % (render_url, urllib.urlencode(params, doseq=True))
 
+    machine.security_packages = None
+    machine.total_packages = None
+    machine.requires_restart = None
+
     response = requests.get(url)
     if response.ok:
         data = response.json()
 
         for target in data:
             sorted_data = sorted(target['datapoints'], key=lambda x: x[1], reverse=True)
+            sorted_data = [point for point in sorted_data if point[0] is not None]
             if len(sorted_data) > 0:
                 latest_val = sorted_data[0][0]
             else:

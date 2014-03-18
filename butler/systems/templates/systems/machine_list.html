@@ -2,15 +2,15 @@
 
 {% block content %}
 
-    <table class='table'>
+    <table class='table' data-sortable>
         <thead>
             <tr>
                 <th>Environment</th>
                 <th>Hostname</th>
                 <th>Roles</th>
-                <th>Security Updates</th>
-                <th>Total Updates</th>
-                <th>Requires Restart?</th>
+                <th>Security<br/>Updates</th>
+                <th>Total<br/>Updates</th>
+                <th>Requires<br/>Restart?</th>
             </tr>
         </thead>
         <tbody>
@@ -23,12 +23,51 @@
                         {{ role.name }} -
                     {% endfor %}
                 </td>
-                <td>{{ machine.security_packages }}</td>
-                <td>{{ machine.total_packages }}</td>
-                <td>{{ machine.requires_restart }}</td>
+                <td>
+                    {% if machine.security_packages == None %}
+                        <span class='label label-info'>?</span>
+                    {% elif machine.security_packages == 0 %}
+                        0
+                    {% else %}
+                        <span class='label label-danger'>
+                            {{ machine.security_packages }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if machine.total_packages == None %}
+                    <span class='label label-info'>?</span>
+                    {% elif machine.total_packages == 0 %}
+                    0
+                    {% else %}
+                        <span class='label label-warning'>
+                            {{ machine.total_packages }}
+                        </span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if machine.requires_restart == None %}
+                    <span class='label label-info'>?</span>
+                    {% elif machine.requires_restart %}
+                    <span class="label label-danger">
+                        YES
+                    </span>
+                    {% else %}
+                    No
+                    {% endif %}
+                </td>
             <tr>
             {% endfor %}
         </tbody>
     </table>
 
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+    $(function(){
+        $('.sortable').sortable();
+    });
+</script>
 {% endblock %}

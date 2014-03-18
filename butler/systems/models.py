@@ -21,8 +21,8 @@ class Machine(models.Model):
     nodename = models.CharField(max_length=50, db_index=True)
     roles = models.ManyToManyField(Role, blank=True, null=True)
 
-    security_packages = models.IntegerField(default=0)
-    total_packages = models.IntegerField(default=0)
+    security_packages = models.IntegerField(null=True, blank=True)
+    total_packages = models.IntegerField(null=True, blank=True)
     requires_restart = models.NullBooleanField(default=None)
 
     last_update = models.DateTimeField(null=True, blank=True)

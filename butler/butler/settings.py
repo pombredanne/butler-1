@@ -112,7 +112,6 @@ BROKER_URL = os.environ.get('BROKER_URL', 'django://')
 if BROKER_URL == 'django://':
     INSTALLED_APPS += ("kombu.transport.django",)
 
-
 # Butler specific settings
 PUPPETDB_URL = os.environ.get('PUPPETDB_URL')
 PUPPETDB_KEY = os.environ.get('BUTLER_PUPPETDB_KEY')
@@ -136,7 +135,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.NullHandler',
             },
-        'console':{
+        'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
@@ -165,3 +164,7 @@ LOGGING = {
         }
     }
 }
+
+# configure Celery from these settings
+import djcelery
+djcelery.setup_loader()
