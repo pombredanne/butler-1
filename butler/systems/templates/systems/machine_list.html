@@ -27,7 +27,7 @@
                     {% if machine.security_packages == None %}
                         <span class='label label-info'>?</span>
                     {% elif machine.security_packages == 0 %}
-                        0
+                    <span class='label label-success'>0</span>
                     {% else %}
                         <span class='label label-danger'>
                             {{ machine.security_packages }}
@@ -39,7 +39,7 @@
                     {% if machine.total_packages == None %}
                     <span class='label label-info'>?</span>
                     {% elif machine.total_packages == 0 %}
-                    0
+                    <span class='label label-success'>0</span>
                     {% else %}
                         <span class='label label-warning'>
                             {{ machine.total_packages }}
@@ -54,7 +54,7 @@
                         YES
                     </span>
                     {% else %}
-                    No
+                    <span class='label label-success'>No</span>
                     {% endif %}
                 </td>
             <tr>
