@@ -17,7 +17,7 @@ class DashboardPanel(models.Model):
 
     def get_value(self):
         data = graphite.get_latest_value(self.graphite_target)
-        return data[self.graphite_target]
+        return data.values()[0]
 
     def __unicode__(self):
         return self.name
