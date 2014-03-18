@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for panel in dashboard.panels.all %}
+        {{ panel.name }} - {{ panel.get_value }}
+    {% endfor %}
+{% endblock %}

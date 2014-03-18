@@ -37,6 +37,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 PROJECT_APPS = (
     'core',
     'systems',
+    'dashboard'
 )
 
 INSTALLED_APPS = (
@@ -92,6 +93,9 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = True
 
+
+# Graphite
+GRAPHITE_SERVER = os.environ.get('GRAPHITE_SERVER', 'http://graphite.support.akvo-ops.org')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
