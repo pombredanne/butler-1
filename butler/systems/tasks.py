@@ -78,9 +78,9 @@ def sync_node(hostname):
             elif stat_name.endswith('.requires_restart'):
                 machine.requires_restart = latest_val is not None and latest_val > 0
             else:
-                logging.debug("Unrecognised target: %s" % stat_name)
+                logging.debug("Unrecognised target: %s", stat_name)
     else:
-        logging.warning("Unable to get system stats for machine %s" % machine)
+        logging.warning("Unable to get system stats for machine %s", machine)
 
     machine.last_update = timezone.now()
     machine.save()
