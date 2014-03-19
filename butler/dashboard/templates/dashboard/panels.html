@@ -1,0 +1,19 @@
+
+{% for panel in dashboard.panels.all %}
+<div class="col-md-3">
+
+    <div class="dashboard-panel
+                      {% if panel.is_warning %}warning{% endif %}
+                      {% if panel.is_error %}error{% endif %}"
+                data-url="{{ panel.get_url }}">
+        <h4>{{ panel.name }}</h4>
+                <span class='panel-value panel-value-{{ panel.get_value_display|length }}'>
+                    {{ panel.get_value_display }}
+                </span>
+        {% if panel.description %}
+        <p>{{ panel.description }}</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endfor %}

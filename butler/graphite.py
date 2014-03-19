@@ -28,6 +28,18 @@ def get_latest_value(*targets):
     return ret
 
 
+def get_graph_url(target):
+    render_url = '%s/render/' % settings.GRAPHITE_SERVER
+
+    params = {
+        'target': target,
+        'from': '-30mins',
+        'width': 700,
+        'height': 500
+    }
+    return  '%s?%s' % (render_url, urllib.urlencode(params, doseq=True))
+
+
 def get_data(*targets):
     render_url = '%s/render/' % settings.GRAPHITE_SERVER
 
@@ -39,7 +51,7 @@ def get_data(*targets):
     url = '%s?%s' % (render_url, urllib.urlencode(params, doseq=True))
 
     response = requests.get(url)
-
+    print url
     if not response.ok:
         raise GraphiteLoadError(response.status_code, response.content)
 
