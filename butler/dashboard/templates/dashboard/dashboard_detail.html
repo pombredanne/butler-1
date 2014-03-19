@@ -59,7 +59,7 @@
 {% block extra_scripts %}
 <script type="text/javascript">
     $(function(){
-        $('.dashboard-panel').on('click', function(){
+        $('#panels').on('click', '.dashboard-panel', function(){
             document.location = $(this).data('url');
         });
 
