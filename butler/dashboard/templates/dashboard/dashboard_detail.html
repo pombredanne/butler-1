@@ -49,7 +49,9 @@
 
     <h1>{{ dashboard.name }}</h1>
 
-    {% include 'dashboard/panels.html' %}
+    <div id='panels'>
+        {% include 'dashboard/panels.html' %}
+    </div>
 
 </div>
 {% endblock %}
@@ -60,6 +62,12 @@
         $('.dashboard-panel').click(function(){
             document.location = $(this).data('url');
         });
+
+        setInterval(function(){
+            $.get("{% url 'dashboard_detail' dashboard.id %}", function(html){
+                $('#panels').html(html);
+            });
+        }, 5000);
     });
 </script>
 {% endblock %}
