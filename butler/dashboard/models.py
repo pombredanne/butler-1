@@ -49,7 +49,7 @@ class DashboardPanel(models.Model):
 
     def get_value_display(self):
         value = self.get_value()
-        if self.value_format is None:
+        if self.value_format is None or self.value_format == '':
             return str(value)
         return self.value_format % value
 

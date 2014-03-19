@@ -37,7 +37,7 @@ def get_graph_url(target):
         'width': 700,
         'height': 500
     }
-    return  '%s?%s' % (render_url, urllib.urlencode(params, doseq=True))
+    return '%s?%s' % (render_url, urllib.urlencode(params, doseq=True))
 
 
 def get_data(*targets):
@@ -51,7 +51,6 @@ def get_data(*targets):
     url = '%s?%s' % (render_url, urllib.urlencode(params, doseq=True))
 
     response = requests.get(url)
-    print url
     if not response.ok:
         raise GraphiteLoadError(response.status_code, response.content)
 
