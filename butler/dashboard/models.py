@@ -43,7 +43,7 @@ class DashboardPanel(models.Model):
         return self._value
 
     def get_url(self):
-        if self.url is not None:
+        if self.url is not None and self.url != '':
             return self.url
         return graphite.get_graph_url(self.graphite_target)
 
