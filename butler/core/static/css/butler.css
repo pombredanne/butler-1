@@ -1,0 +1,41 @@
+.dashboard {
+    cursor: pointer;
+}
+.dashboard-panel {
+    padding: 10px;
+    color: white;
+    height: 250px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #65BD77;
+    margin-bottom: 30px;
+}
+.dashboard-panel h4 {
+    color: #2C7439;
+    height: 40px;
+}
+.dashboard-panel.error {
+    background-color: #D9534F;
+}
+.dashboard-panel.error h4 {
+    color: #791C1A;
+}
+.dashboard-panel.warning {
+    background-color: #F0AD4E;
+}
+.dashboard-panel.warning h4 {
+    color: #9D5D03;
+}
+.panel-value {
+    display: block;
+    color: white;
+}
+.panel-value-1, .panel-value-2, .panel-value-3 {
+    font-size: 6em;
+}
+.panel-value-4, .panel-value-5, .panel-value-6 {
+    font-size: 4.5em;
+}
+.panel-value-7, .panel-value-8, .panel-value-9 {
+    font-size: 3em;
+}

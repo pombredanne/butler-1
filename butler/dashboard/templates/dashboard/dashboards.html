@@ -1,0 +1,46 @@
+
+<div class="row">
+    <div class="col-md-8">
+        <table class='table table-striped'>
+            <thead>
+                <tr>
+                    <th>Dashboard</th>
+                    <th>Ok</th>
+                    <th>Warning</th>
+                    <th>Error</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for dashboard in dashboards %}
+                <tr class='dashboard' data-url="{% url 'dashboard_detail' dashboard.id %}">
+                    <td>{{ dashboard.name }}</td>
+                    <td width='10%'>
+                        <span class="label label-success">
+                        {{ dashboard.get_good_metrics_count }}
+                        </span>
+                    </td>
+                    <td width='10%'>
+                        <span class="label label-warning">
+                        {{ dashboard.get_warn_metrics_count }}
+                        </span>
+                    </td>
+                    <td width='10%'>
+                        <span class="label label-danger">
+                        {{ dashboard.get_error_metrics_count }}
+                        </span>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class='last-update'>
+            Last update: {{ last_update }}
+        </div>
+    </div>
+</div>

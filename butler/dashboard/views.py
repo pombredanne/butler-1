@@ -20,3 +20,22 @@ class DashboardDetail(View):
             template_name = 'dashboard/dashboard_detail.html'
 
         return render(request, template_name, ctx)
+
+
+class DashboardList(View):
+
+    def get(self, request):
+
+        dashboards = Dashboard.objects.all().order_by('name')
+
+        ctx = {
+            'dashboards': dashboards,
+            'last_update': timezone.now()
+        }
+
+        if request.is_ajax():
+            template_name = 'dashboard/dashboards.html'
+        else:
+            template_name = 'dashboard/dashboard_list.html'
+
+        return render(request, template_name, ctx)

@@ -3,10 +3,10 @@
 {% block content %}
 <div class="row">
 
-    <h1>{{ dashboard.name }}</h1>
+    <h1>Dashboards</h1>
 
-    <div id='panels'>
-        {% include 'dashboard/panels.html' %}
+    <div id='dashboards'>
+        {% include 'dashboard/dashboards.html' %}
     </div>
 
 </div>
@@ -15,13 +15,13 @@
 {% block extra_scripts %}
 <script type="text/javascript">
     $(function(){
-        $('#panels').on('click', '.dashboard-panel', function(){
+        $('#dashboards').on('click', '.dashboard', function(){
             document.location = $(this).data('url');
         });
 
         setInterval(function(){
-            $.get("{% url 'dashboard_detail' dashboard.id %}", function(html){
-                $('#panels').html(html);
+            $.get("{% url 'dashboard_list' %}", function(html){
+                $('#dashboards').html(html);
             });
         }, 5000);
     });
