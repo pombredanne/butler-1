@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.cache import get_cache
 import graphite
 
 
@@ -32,7 +33,17 @@ class DashboardPanel(models.Model):
             return False
         return self.get_value() >= self.error_threshold
 
-    def get_value(self):
+    def get_value(self, use_cache=True):
+
+        cache_key = 'panel-%s' % self.id
+        cache = get_cache('default')
+
+        if use_cache:
+            value = cache.get(cache_key)
+            if value is not None:
+                self._value = value
+                return self._value
+
         if not hasattr(self, '_value'):
             try:
                 data = graphite.get_latest_value(self.graphite_target)
@@ -53,6 +64,8 @@ class DashboardPanel(models.Model):
                     self._value = data.values()[0]
                 else:
                     self._value = 0
+
+        cache.set(cache_key, self._value)
 
         return self._value
 

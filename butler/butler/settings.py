@@ -122,6 +122,16 @@ PUPPETDB_KEY = os.environ.get('BUTLER_PUPPETDB_KEY')
 PUPPETDB_CERT = os.environ.get('BUTLER_PUPPETDB_CERT')
 
 
+# Cache configuration
+CACHES = {
+    'default': {
+        'BACKEND': os.environ.get('CACHE_BACKEND', 'django.core.cache.backends.dummy.DummyCache'),
+        'LOCATION': os.environ.get('CACHE_LOCATION', None),
+        'TIMEOUT': 120
+    },
+}
+
+
 # Logging
 LOGGING = {
     'version': 1,

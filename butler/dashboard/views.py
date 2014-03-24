@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 from django.views.generic import View
 from dashboard.models import Dashboard
 
@@ -9,7 +10,8 @@ class DashboardDetail(View):
         dashboard = get_object_or_404(Dashboard, pk=dashboard_id)
 
         ctx = {
-            'dashboard': dashboard
+            'dashboard': dashboard,
+            'last_update': timezone.now()
         }
 
         if request.is_ajax():
