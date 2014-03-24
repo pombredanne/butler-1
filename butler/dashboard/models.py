@@ -7,6 +7,12 @@ class Dashboard(models.Model):
     name = models.CharField(max_length=200)
     panels = models.ManyToManyField('DashboardPanel')
 
+    def is_error(self):
+        return self.get_error_metrics_count() > 0
+
+    def is_warning(self):
+        return self.get_warn_metrics_count() > 0
+
     def get_good_metrics_count(self):
         count = 0
         for panel in self.panels.all():

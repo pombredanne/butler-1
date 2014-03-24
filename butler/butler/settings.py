@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
+import django.conf.global_settings as defaults
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -55,14 +58,11 @@ INSTALLED_APPS = (
 ) + PROJECT_APPS
 
 
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+MIDDLEWARE_CLASSES = () + defaults.MIDDLEWARE_CLASSES
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'dashboard.context_processors.add_dashboard_list',
+) + defaults.TEMPLATE_CONTEXT_PROCESSORS
 
 ROOT_URLCONF = 'butler.urls'
 
