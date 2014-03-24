@@ -34,11 +34,25 @@ class DashboardPanel(models.Model):
 
     def get_value(self):
         if not hasattr(self, '_value'):
-            data = graphite.get_latest_value(self.graphite_target)
-            if len(data) > 0:
-                self._value = data.values()[0]
+            try:
+                data = graphite.get_latest_value(self.graphite_target)
+            except graphite.GraphiteLoadError as e:
+                # This is a gratuitous hack. The 'countSeries' metric is very useful for counting
+                # "number of systems which X", but if no systems match, graphite errors rather than
+                # return 0. This code catches that particular case and assumes a value of 0, as
+                # attempting to duplicate the functionality of 'countSeries' with other functions
+                # such as "sumSeries" did not work well enough - sumSeries would rely on all the data
+                # points having exactly the same timestamp
+                if e.status_code == 500 and 'countSeries' in self.graphite_target\
+                   and 'reduce() of empty sequence with no initial value' in e.content:
+                    self._value = 0
+                else:
+                    raise
             else:
-                self._value = 0
+                if len(data) > 0:
+                    self._value = data.values()[0]
+                else:
+                    self._value = 0
 
         return self._value
 
