@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.core.cache import get_cache
 import graphite
@@ -6,6 +7,9 @@ import graphite
 class Dashboard(models.Model):
     name = models.CharField(max_length=200)
     panels = models.ManyToManyField('DashboardPanel')
+
+    def get_absolute_url(self):
+        return reverse('dashboard_detail', args=[self.id])
 
     def is_error(self):
         return self.get_error_metrics_count() > 0
